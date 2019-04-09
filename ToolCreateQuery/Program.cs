@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ToolCreateQuery
 {
     class Program
     {
+        //For Android
+        public static string ConvertToUnsign(string str)
+        {
+            //Convert unicode to ascii character
+            //Because android drawable recourse cant contain unicode
+            Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+            string temp = str.Normalize(System.Text.NormalizationForm.FormD);
+            return regex.Replace(temp, String.Empty)
+                .Replace('\u0111', 'd').Replace('\u0110', 'D');
+        }
+
         //Function to get all file names in folder
         private static List<string> GetListCountry()
         {
@@ -17,6 +29,11 @@ namespace ToolCreateQuery
             List<string> lstNames = new List<string>();
             foreach (var file in files)
             {
+                //Add this line to rename all upper file name to lower file name
+                //Android drawable resource can't contain ' and - characters
+                //So it gets removed
+                File.Move(file.FullName, ConvertToUnsign(file.FullName.ToLower().Replace("'", String.Empty)
+                    .Replace("-", String.Empty)));
                 lstNames.Add(file.Name.Replace(".png", String.Empty)); //NL.png->NL
             }
 
