@@ -62,6 +62,11 @@ namespace ToolCreateQuery
 
         static void Main(string[] args)
         {
+            Console.WriteLine("TOOL GENERATE QUERY 1.0");
+            Console.WriteLine("Please wait...");
+            GenerateQuery();
+            Console.WriteLine("Success...");
+            Console.ReadKey();
         }
     }
 }
