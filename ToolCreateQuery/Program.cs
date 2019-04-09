@@ -24,7 +24,7 @@ namespace ToolCreateQuery
         //Function to get all file names in folder
         private static List<string> GetListCountry()
         {
-            DirectoryInfo d = new DirectoryInfo(@"C:\Users\%USERNAME%\Pictures\Flags");
+            DirectoryInfo d = new DirectoryInfo(@"C:\Users\%USERNAME%\Pictures\Flags\");
             FileInfo[] files = d.GetFiles("*.png");
             List<string> lstNames = new List<string>();
             foreach (var file in files)
